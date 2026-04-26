@@ -3,7 +3,7 @@ import { z } from "zod";
 export const MATCH_STATUS = {
   SCHEDULED: "scheduled",
   LIVE: "live",
-  FIISHED: "finished",
+  FINISHED: "finished",
 };
 
 export const listMatchesQuerySchema = z.object({
@@ -11,11 +11,7 @@ export const listMatchesQuerySchema = z.object({
 });
 
 export const matchIdParamSchema = z.object({
-  limit: z.coerce.number().int().positive(),
-});
-
-const isoDateSting = z.string().refine((val) => !isNaN(Date.parse(val)), {
-  message: "Invalid ISO date string",
+  id: z.coerce.number().int().positive(),
 });
 
 export const createMatchSchema = z
@@ -23,8 +19,8 @@ export const createMatchSchema = z
     sport: z.string().min(1),
     homeTeam: z.string().min(1),
     awayTeam: z.string().min(1),
-    startTime: isoDateSting,
-    endTime: isoDateSting,
+    startTime: z.iso.datetime(),
+    endTime: z.iso.datetime(),
     homeScore: z.coerce.number().int().nonnegative().optional(),
     awayScore: z.coerce.number().int().nonnegative().optional(),
   })
@@ -41,7 +37,7 @@ export const createMatchSchema = z
     }
   });
 
-export const updateScroreSchema = z.object({
-  homescore: z.coerce.number().int().nonnegative(),
-  awayscore: z.coerce.number().int().nonnegative(),
+export const updateScoreSchema = z.object({
+  homeScore: z.coerce.number().int().nonnegative(),
+  awayScore: z.coerce.number().int().nonnegative(),
 });
