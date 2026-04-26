@@ -1,8 +1,7 @@
 import express from "express";
 import { matchRouter } from "./routes/matches.js";
 import http from "http";
-import { matchRouter } from "./routes/matches";
-import { attachWebSocketServer } from "./ws/server";
+import { attachWebSocketServer } from "./ws/server.js";
 
 const app = express();
 const server = http.createServer(app);
