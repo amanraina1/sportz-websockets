@@ -43,7 +43,7 @@ commentaryRouter.get("/", async (req, res) => {
 
     res.status(200).json({ data: results });
   } catch (error) {
-    console.log("Failed to fetch commentary: ", error);
+    console.error("Failed to fetch commentary: ", error);
     res.status(500).json({ error: "Failed to fetch commentary." });
   }
 });
